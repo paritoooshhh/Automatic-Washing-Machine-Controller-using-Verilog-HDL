@@ -61,6 +61,7 @@ washing_machine_controller
 # Washing Cycle Flow
 
 The controller follows a standard washing sequence:
+
 IDLE
 
 ↓
