@@ -1,63 +1,31 @@
 # Washing Machine Controller (RTL Design)
 
-A modular **FSM-based washing machine controller** implemented in **Verilog HDL**, designed to simulate real-world appliance behavior with multiple washing modes and timer-driven control.
+A complete **FSM-based Washing Machine Controller** designed in **Verilog HDL**, modeling real-world washing machine behavior with multiple modes, timer-driven control, and modular architecture.
 
 ---
 
 ## Project Overview
 
-This project models the internal control logic of a modern washing machine using a **finite state machine (FSM)**.
-The controller manages different washing cycles by coordinating actuators such as valves, motors, and pumps based on selected modes.
+This project implements a **Moore Finite State Machine (FSM)** to control washing machine operations such as filling water, washing, draining, rinsing, and spinning.
 
-The design focuses on:
+The system is designed to mimic a real appliance controller by integrating:
 
-* Realistic washing behavior
-* Modular RTL architecture
-* Scalable design for future enhancements
+* Mode-based operation
+* Timer-controlled state transitions
+* Actuator control signals
+* Pause and resume functionality
 
 ---
 
 ## Features
 
-* FSM-based control system
-* 11 washing modes (real panel inspired)
-* Timer-driven state transitions
-* Separate control for wash and spin motors
-* Modular Verilog design
-* Time-remaining counter support
-* Scalable architecture (V2 ready)
-
----
-
-## Architecture
-
-```text
-                +----------------------+
-mode_select --->|   MODE CONTROLLER    |
-                +----------+-----------+
-                           |
-                           v
-                +----------------------+
-                |   TIMER LOOKUP       |
-                +----------+-----------+
-                           |
-                           v
-                +----------------------+
-                |   TIMER COUNTER      |
-                +----------+-----------+
-                           |
-                     timer_done
-                           |
-                           v
-                +----------------------+
-                |    WASHING FSM       |
-                +----------+-----------+
-                           |
-                           v
-                +----------------------+
-                |  ACTUATOR CONTROL    |
-                +----------------------+
-```
+*  Moore FSM-based control logic
+*  Timer-driven state transitions
+*  11 washing modes (real panel inspired)
+*  Pause / Resume support
+*  Modular RTL architecture
+*  Clean separation of control and datapath
+*  Fully testbench-verified
 
 ---
 
@@ -77,27 +45,92 @@ mode_select --->|   MODE CONTROLLER    |
 
 ---
 
-## Actuator Control
+##  Architecture
 
-The controller operates key washing machine components:
-
-* Water inlet valve
-* Drum motor (wash mode)
-* Drum motor (spin mode)
-* Drain pump
-* Door lock system
-* Buzzer (cycle completion)
+```text
+                +----------------------+
+mode ---------->|  MODE TIMER LOOKUP   |
+                +----------+-----------+
+                           |
+                           v
+                     load_value
+                           |
+                           v
+                +----------------------+
+                |    TIMER COUNTER     |
+                +----------+-----------+
+                           |
+                      timer_done
+                           |
+                           v
+                +----------------------+
+start/pause --->|     WASHING FSM      |
+                +----------+-----------+
+                           |
+                         state
+                           |
+                           v
+                +----------------------+
+                |  ACTUATOR CONTROL    |
+                +----------------------+
+                           |
+                        outputs
+```
 
 ---
 
-## Project Structure
+##  FSM Design
+
+The controller is based on a **Moore State Machine**, where outputs depend only on the current state.
+
+### States:
+
+* IDLE
+* FILL
+* PRESOAK
+* WASH
+* DRAIN
+* RINSE1
+* SPIN
+* DONE
+  <img width="1417" height="813" alt="image" src="https://github.com/user-attachments/assets/7b043cf7-8e13-41ec-ac5f-e019f0c91132" />
+Complete Moore State Machine Diagram
+
+### Key Behavior:
+
+* Transitions occur only when timer_done = 1
+* Modes dynamically alter state paths
+* Pause functionality freezes timer without resetting state
+
+---
+
+##  Actuator Control
+
+The system controls real washing machine components:
+
+* Water inlet valve
+* Wash motor
+* Spin motor
+* Drain pump
+* Door lock mechanism
+* Buzzer (completion signal)
+
+---
+
+##  Project Structure
 
 ```text
 washing-machine-controller/
 
 rtl/
+    timer_counter.v
+    mode_timer_lookup.v
+    washing_fsm.v
+    actuator_control.v
+    top_controller.v
+
 tb/
-docs/
+    testbench.v
 
 README.md
 design_spec.md
@@ -105,17 +138,47 @@ design_spec.md
 
 ---
 
-## Design Note
+##  Simulation
 
-For detailed FSM design, timing tables, and system specifications, refer to:
+The project includes a **testbench** to verify:
 
-`design_spec.md`
+* Multiple washing modes
+* State transitions
+* Pause/resume functionality
+* Actuator behavior
 
 ---
 
-## Author
+##  Design Highlights
+
+* Clean modular design
+* Industry-style FSM implementation
+* Scalable for future upgrades (V2)
+* Real-world appliance modeling
+
+---
+
+##  Future Improvements (V2)
+
+* Multiple rinse cycles (RINSE1 → RINSE8)
+* Real-time clock divider
+* Sensor integration (water level, door safety)
+* Display interface (7-segment / LCD)
+* FPGA deployment
+
+---
+
+##  Author
 
 **Paritosh Tanneru**
 ECE 4th semester — IIIT Kottayam
+
+---
+
+##  Note
+
+For detailed design specifications, timing tables, and state diagrams, refer to:
+
+ `design_spec.md`
 
 ---
