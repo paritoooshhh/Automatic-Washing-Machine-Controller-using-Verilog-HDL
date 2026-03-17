@@ -21,7 +21,7 @@ wire enable_timer;
 wire timer_done;
 wire [9:0] load_value;
 
-washing_fsm fsm_instantiationantiation(
+washing_fsm fsm_instantiation(
     .clk(clk),
     .reset(reset),
     .start(start),
