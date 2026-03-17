@@ -12,7 +12,6 @@ module washing_fsm(
     output reg enable_timer
 );
 
-// ---------------- STATE ENCODING ----------------
 parameter IDLE    = 3'd0;
 parameter FILL    = 3'd1;
 parameter PRESOAK = 3'd2;
@@ -22,7 +21,6 @@ parameter RINSE1  = 3'd5;
 parameter SPIN    = 3'd6;
 parameter DONE    = 3'd7;
 
-// ---------------- MODE ENCODING ----------------
 parameter NORMAL        = 4'd0;
 parameter QUICK_WASH    = 4'd1;
 parameter SUPER_CLEAN   = 4'd2;
@@ -35,7 +33,6 @@ parameter TUB_CLEAN     = 4'd8;
 parameter ECO_TUB_CLEAN = 4'd9;
 parameter PRESOAK_WASH  = 4'd10;
 
-// ---------------- STATE REG ----------------
 reg [2:0] next_state;
 
 always @(posedge clk or posedge reset) begin
@@ -45,14 +42,12 @@ always @(posedge clk or posedge reset) begin
         state <= next_state;
 end
 
-// ---------------- NEXT STATE LOGIC ----------------
 always @(*) begin
 
     next_state = state;
 
     case(state)
 
-        // -------- IDLE --------
         IDLE: begin
             if (start) begin
                 if (mode == DRAIN_SPIN)
@@ -64,7 +59,6 @@ always @(*) begin
             end
         end
 
-        // -------- FILL --------
         FILL: begin
             if (timer_done) begin
                 if (mode == SUPER_CLEAN || mode == BEDSHEET || mode == JEANS || mode == PRESOAK_WASH)
@@ -74,19 +68,16 @@ always @(*) begin
             end
         end
 
-        // -------- PRESOAK --------
         PRESOAK: begin
             if (timer_done)
                 next_state = WASH;
         end
 
-        // -------- WASH --------
         WASH: begin
             if (timer_done)
                 next_state = DRAIN;
         end
 
-        // -------- DRAIN --------
         DRAIN: begin
             if (timer_done) begin
                 if (mode == DRAIN_SPIN)
@@ -98,39 +89,32 @@ always @(*) begin
             end
         end
 
-        // -------- RINSE --------
         RINSE1: begin
             if (timer_done)
                 next_state = SPIN;
         end
 
-        // -------- SPIN --------
         SPIN: begin
             if (timer_done)
                 next_state = DONE;
         end
 
-        // -------- DONE --------
         DONE: begin
-            next_state = IDLE;   // auto reset after completion
+            next_state = IDLE; 
         end
 
     endcase
 
 end
 
-// ---------------- TIMER CONTROL ----------------
 always @(*) begin
 
-    // default
     load_timer = 0;
     enable_timer = 1;
 
-    // load when entering new state
     if (state != next_state)
         load_timer = 1;
 
-    // pause handling
     if (pause)
         enable_timer = 0;
 
