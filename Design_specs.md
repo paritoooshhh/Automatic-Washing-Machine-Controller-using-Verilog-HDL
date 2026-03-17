@@ -32,7 +32,7 @@ SPIN
 DONE
 ```
 
-<img width="1123" height="769" alt="image" src="https://github.com/user-attachments/assets/ff2582e1-f4a9-46a1-94af-6359795d4228" />
+<img width="1177" height="787" alt="image" src="https://github.com/user-attachments/assets/8b160ace-808b-4d51-a6ab-368130d60e04" />
 
 Complete Moore machine Specification
 
