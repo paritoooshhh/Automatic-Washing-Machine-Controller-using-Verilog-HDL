@@ -1,4 +1,4 @@
-# Washing Machine Controller — Design Specification (V1)
+# FSM based Washing Machine Controller — Design Specification (V1)
 
 ## Overview
 
