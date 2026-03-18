@@ -108,8 +108,6 @@ always @(*) begin
 
     endcase
 
-    next_state_out = next_state;
-
 end
 
 always @(*) begin
