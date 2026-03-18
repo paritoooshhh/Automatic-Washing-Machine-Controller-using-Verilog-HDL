@@ -1,4 +1,4 @@
-# Washing Machine Controller (RTL Design)
+# FSM Based Washing Machine Controller (RTL Design)
 
 A complete **FSM-based Washing Machine Controller** designed in **Verilog HDL**, modeling real-world washing machine behavior with multiple modes, timer-driven control, and modular architecture.
 
