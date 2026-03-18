@@ -22,7 +22,6 @@ The system is designed to mimic a real appliance controller by integrating:
 *  Moore FSM-based control logic
 *  Timer-driven state transitions
 *  11 washing modes (real panel inspired)
-*  Pause / Resume support
 *  Modular RTL architecture
 *  Clean separation of control and datapath
 *  Fully testbench-verified
@@ -72,7 +71,6 @@ Complete Moore State Machine Diagram
 
 * Transitions occur only when timer_done = 1
 * Modes dynamically alter state paths
-* Pause functionality freezes timer without resetting state
 
 ---
 
@@ -116,7 +114,6 @@ The project includes a **testbench** to verify:
 
 * Multiple washing modes
 * State transitions
-* Pause/resume functionality
 * Actuator behavior
 
 ---
@@ -132,6 +129,7 @@ The project includes a **testbench** to verify:
 
 ##  Future Improvements (V2)
 
+* Pause/resume functionality
 * Multiple rinse cycles (RINSE1 → RINSE8)
 * Real-time clock divider
 * Sensor integration (water level, door safety)
