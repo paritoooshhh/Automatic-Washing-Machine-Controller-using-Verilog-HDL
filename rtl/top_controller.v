@@ -16,7 +16,6 @@ module top_controller(
 );
 
 wire [2:0] state;
-wire [2:0] next_state;
 wire load_timer;
 wire enable_timer;
 wire timer_done;
@@ -31,14 +30,13 @@ washing_fsm fsm_inst(
     .timer_done(timer_done),
 
     .state(state),
-    .next_state_out(next_state),
     .load_timer(load_timer),
     .enable_timer(enable_timer)
 );
 
 mode_timer_lookup lookup_inst(
     .mode(mode),
-    .state(state),  
+    .state(state),         
     .time_value(load_value)
 );
 
