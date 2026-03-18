@@ -103,6 +103,7 @@ PRESOAK_WASH  = 4'd10
 ---
 
 ## Mode + State → Timer Table (in seconds)
+It is calculated in such a way that total time in real-life divided by 30 because to make it less complex for the base version V1
 
 ### NORMAL
 
