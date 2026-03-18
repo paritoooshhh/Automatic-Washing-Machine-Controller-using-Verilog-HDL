@@ -13,7 +13,6 @@ The system is designed to mimic a real appliance controller by integrating:
 * Mode-based operation
 * Timer-controlled state transitions
 * Actuator control signals
-* Pause and resume functionality
 
 ---
 
