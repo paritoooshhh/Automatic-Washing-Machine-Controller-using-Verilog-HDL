@@ -47,38 +47,8 @@ The system is designed to mimic a real appliance controller by integrating:
 
 ##  Architecture
 
-```text
-                +----------------------+
-mode ---------->|  MODE TIMER LOOKUP   |
-                +----------+-----------+
-                           |
-                           v
-                     load_value
-                           |
-                           v
-                +----------------------+
-                |    TIMER COUNTER     |
-                +----------+-----------+
-                           |
-                      timer_done
-                           |
-                           v
-                +----------------------+
-start/pause --->|     WASHING FSM      |
-                +----------+-----------+
-                           |
-                         state
-                           |
-                           v
-                +----------------------+
-                |  ACTUATOR CONTROL    |
-                +----------------------+
-                           |
-                        outputs
-```
-
----
-
+<img width="1262" height="780" alt="image" src="https://github.com/user-attachments/assets/e366e4e3-310e-47e5-b4fd-fa15d83a6b0a" />
+FSM based - Washing Machine Controller - RTL Architecture (V1)
 ##  FSM Design
 
 The controller is based on a **Moore State Machine**, where outputs depend only on the current state.
